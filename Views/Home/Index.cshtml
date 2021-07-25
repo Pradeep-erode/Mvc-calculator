@@ -1,0 +1,253 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index";
+}
+
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+
+<br />
+<br />
+
+<center>
+    <div id="d1">
+
+        @*While using ajax we dont require to submit anything or redirection method its given in ajax method
+            @using (@Html.BeginForm("Index", "Home"))
+                {*@
+
+        <table style="height:25%;border:thick">
+            <tr>
+                <td colspan="4">
+                    <center>
+                        <h2>My Calculator</h2>
+                    </center>
+                </td>
+            </tr>
+            <tr>
+                @*we can also use <input> tag or Html.textbox for textbox
+                    <td colspan="4" class="styl"><input type="text" id="txt" style="height:40px;width:100%" /></td>*@
+                <td colspan="4" class="styl">@Html.TextBox("txt")</td>
+            </tr>
+            <tr>
+                <td><input type="button" id="b7" value="7" style="height:40px;width:75px" /></td>
+                <td><input type="button" id="b8" value="8" style="height:40px;width:75px" /></td>
+                <td><input type="button" id="b9" value="9" style="height:40px;width:75px" /></td>
+                <td><input type="button" id="div" value="/" style="height:40px;width:75px" /></td>
+            </tr>
+            <tr>
+                <td><input type="button" id="b4" value="4" style="height:40px;width:75px" /></td>
+                <td><input type="button" id="b5" value="5" style="height:40px;width:75px" /></td>
+                <td><input type="button" id="b6" value="6" style="height:40px;width:75px" /></td>
+                <td><input type="button" id="multy" value="*" style="height:40px;width:75px" /></td>
+            </tr>
+            <tr>
+                <td><input type="button" id="b1" value="1" style="height:40px;width:75px" /></td>
+                <td><input type="button" id="b2" value="2" style="height:40px;width:75px" /></td>
+                <td><input type="button" id="b3" value="3" style="height:40px;width:75px" /></td>
+                <td><input type="button" id="sub" value="-" style="height:40px;width:75px" /></td>
+            </tr>
+            <tr>
+                <td><input type="button" id="b0" value="0" style="height:40px;width:75px" /></td>
+                <td><input type="button" id="dot" value="." style="height:40px;width:75px" /></td>
+                <td><input type="button" id="add" value="+" style="height:40px;width:75px" /></td>
+                <td><input type="button" onclick="Validation()" id="eq" value="=" style="height:40px;width:75px" /></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="button" id="ce" value="CE" style="height:40px;width:155px" />
+                </td>
+                <td colspan="2">
+                    <input type="button" id="re" value="Clear" style="height:40px;width:155px" />
+                </td>
+            </tr>
+        </table>
+        @*<h3>Result : @ViewBag.result</h3>*@
+        @*}*@
+    </div>
+</center>
+@if (@ViewBag.flag == 0)
+{
+    Response.Write("<script>alert('Right value is missing.')</script>");
+}
+@if (@ViewBag.fla == 2)
+{
+    Response.Write("<script>alert('please enter correct operation')</script>");
+}
+<script type="text/javascript">
+
+    /*ajax method using onclick=Validation function */
+
+    function Validation() {
+        $.ajax({
+            url: '/Home/Index',
+            type: 'POST',
+            data:
+                { calcValues: $("#txt").val() }, /*calcValues is a data we pass to controller */
+            async: false,                       /*async means weather synchronization(continuous hit) is true or false*/
+            success: function (result) {        /*here result is a return value from controller*/
+                if (result != "") {
+                    $("#txt").val(result);   /*if result value is not null then assign that value to id="txt"*/
+                }
+                else {
+                    alert("Something Went to Wrong !")
+                }
+            },
+            error: function (xhr) {
+                alert(" Error is Occured");
+            }
+        });
+    }
+    $(function () {
+
+        @* for keyboard input logic*@
+
+        @*$("#txt").keypress(function (e) {
+            if (String.fromCharCode(e.keyCode).match(/[^0-9+-/*]/g)) return false;
+        });
+        $("#txt").height("40px").width("312px");
+        $("#b0").click(function () {
+            var x = document.getElementById("txt").value;
+            if (x == "0") {
+                $("#txt").val("0");
+            } else {
+                $("#txt").val(x + "0")
+            }
+        });*@
+        $("#b1").click(function () {
+            var x = document.getElementById("txt").value;
+            if (x == "0") {
+                $("#txt").val("1");
+            } else {
+                $("#txt").val(x + "1")
+            }
+        });
+        $("#b2").click(function () {
+            var x = document.getElementById("txt").value;
+            if (x == "0") {
+                $("#txt").val("2");
+            } else {
+                $("#txt").val(x + "2")
+            }
+        });
+        $("#b3").click(function () {
+            var x = document.getElementById("txt").value;
+            if (x == "0") {
+                $("#txt").val("3");
+            } else {
+                $("#txt").val(x + "3")
+            }
+        });
+        $("#b4").click(function () {
+            var x = document.getElementById("txt").value;
+            if (x == "0") {
+                $("#txt").val("4");
+            } else {
+                $("#txt").val(x + "4")
+            }
+        });
+        $("#b5").click(function () {
+            var x = document.getElementById("txt").value;
+            if (x == "0") {
+                $("#txt").val("5");
+            } else {
+                $("#txt").val(x + "5")
+            }
+        });
+        $("#b6").click(function () {
+            var x = document.getElementById("txt").value;
+            if (x == "0") {
+                $("#txt").val("6");
+            } else {
+                $("#txt").val(x + "6")
+            }
+        });
+        $("#b7").click(function () {
+            var x = document.getElementById("txt").value;
+            if (x == "0") {
+                $("#txt").val("7");
+            } else {
+                $("#txt").val(x + "7")
+            }
+        });
+        $("#b8").click(function () {
+            var x = document.getElementById("txt").value;
+            if (x == "0") {
+                $("#txt").val("8");
+            } else {
+                $("#txt").val(x + "8")
+            }
+        });
+        $("#b9").click(function () {
+            var x = document.getElementById("txt").value;
+            if (x == "0") {
+                $("#txt").val("9");
+            } else {
+                $("#txt").val(x + "9")
+            }
+        });
+        $("#div").click(function () {
+            var x = document.getElementById("txt").value;
+            var y = x.slice(-1)
+            if (y == "/" || y == "+" || y == "*" || y == "-") { } else {
+                $("#txt").val(x + "/")
+            }
+        });
+        $("#multy").click(function () {
+            var x = document.getElementById("txt").value;
+            var x = document.getElementById("txt").value;
+            var y = x.slice(-1)
+            if (y == "/" || y == "+" || y == "*" || y == "-") { } else {
+                $("#txt").val(x + "*")
+            }
+        });
+        $("#sub").click(function () {
+            var x = document.getElementById("txt").value;
+            var y = x.slice(-1)
+            if (y == "/" || y == "+" || y == "*" || y == "-") { } else {
+                $("#txt").val(x + "-")
+            }
+        });
+        $("#add").click(function () {
+            var x = document.getElementById("txt").value;
+            var y = x.slice(-1)
+            if (y == "/" || y == "+" || y == "*" || y == "-") { } else {
+                $("#txt").val(x + "+")
+            }
+        });
+        $("#dot").click(function () {
+            var x = document.getElementById("txt").value;
+            var y = x.slice(-1)
+            if (y == ".") { } else {
+                $("#txt").val(x + ".")
+            }
+        });
+        $("#ce").click(function () {
+            var x = document.getElementById("txt").value;
+            $("#txt").val("")
+        });
+    $("#re").click(function(){
+    var x=document.getElementById("txt").value;
+    $("#txt").val(x.substring(0, x.length-1))
+    });
+
+
+    });
+</script>
+<style>
+    body {
+        background-image: url("Image/images.jpg");
+    }
+
+    #d1 {
+        background-color: #8db397;
+        border: 1px solid black;
+        height: 340px;
+        width: 340px;
+    }
+
+    .styl {
+        padding: 1rem;
+    }
+</style>
